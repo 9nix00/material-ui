@@ -51,7 +51,8 @@ export default {
         accentColor: rawTheme.palette.borderColor,
       },
       flatButton: {
-        color: rawTheme.palette.alternateTextColor,
+        color: Colors.transparent,
+        buttonFilterColor: '#999999',
         textColor: rawTheme.palette.textColor,
         primaryTextColor: rawTheme.palette.accent1Color,
         secondaryTextColor: rawTheme.palette.primary1Color,
@@ -98,7 +99,7 @@ export default {
         backgroundColor: rawTheme.palette.canvasColor,
       },
       radioButton: {
-        borderColor:  rawTheme.palette.textColor,
+        borderColor: rawTheme.palette.textColor,
         backgroundColor: rawTheme.palette.alternateTextColor,
         checkedColor: rawTheme.palette.primary1Color,
         requiredColor: rawTheme.palette.primary1Color,
@@ -250,6 +251,14 @@ export default {
   //the MUI theme and returns it based on the new raw theme.
   modifyRawThemeFontFamily: function(muiTheme, newFontFamily) {
     let newRawTheme = update(muiTheme.rawTheme, {fontFamily: {$set: newFontFamily}});
+    return this.getMuiTheme(newRawTheme);
+  },
+
+  //function to modify the zIndex of the raw theme. This function recomputes
+  //the MUI theme and returns it based on the new raw theme.
+  modifyRawThemeZIndex: function(muiTheme, newZIndexKeys) {
+    let newZIndex = Extend(muiTheme.rawTheme.zIndex, newZIndexKeys);
+    let newRawTheme = update(muiTheme.rawTheme, {zIndex: {$set: newZIndex}});
     return this.getMuiTheme(newRawTheme);
   },
 

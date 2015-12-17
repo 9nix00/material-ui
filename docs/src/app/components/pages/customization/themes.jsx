@@ -37,7 +37,7 @@ const ThemesPage = React.createClass({
 
   mixins: [StylePropable, StyleResizable],
 
-  contextTypes : {
+  contextTypes: {
     muiTheme: React.PropTypes.object,
   },
 
@@ -160,9 +160,11 @@ const ThemesPage = React.createClass({
     let lightRawTheme =
       'import Colors from \'material-ui/lib/styles/colors\';\n' +
       'import ColorManipulator from \'material-ui/lib/utils/color-manipulator\';\n' +
-      'import Spacing from \'material-ui/lib/styles/spacing\';\n\n' +
+      'import Spacing from \'material-ui/lib/styles/spacing\';\n' +
+      'import zIndex from \'material-ui/lib/styles/zIndex\';\n\n' +
       'export default {\n' +
       '  spacing: Spacing,\n' +
+      '  zIndex: zIndex,\n' +
       '  fontFamily: \'Roboto, sans-serif\',\n' +
       '  palette: {\n' +
       '    primary1Color: Colors.cyan500,\n' +
@@ -177,7 +179,7 @@ const ThemesPage = React.createClass({
       '    borderColor: Colors.grey300,\n' +
       '    disabledColor: ColorManipulator.fade(Colors.darkBlack, 0.3),\n' +
       '    pickerHeaderColor: Colors.cyan500,\n' +
-      '  },\n' +
+      '  }\n' +
       '};\n';
 
     let reactContextExampleCode =
@@ -476,12 +478,6 @@ const ThemesPage = React.createClass({
   },
 
   getComponentGroup() {
-    //Standard Actions
-    let standardActions = [
-      {text: 'Cancel'},
-      {text: 'Submit', onTouchTap: this._onDialogSubmit},
-    ];
-
     let styles = this.getStyles();
 
     let menuItems = [
@@ -576,7 +572,20 @@ const ThemesPage = React.createClass({
           <div style={styles.group}>
             <div style={styles.containerCentered}>
               <FlatButton label="View Dialog" onTouchTap={this.handleTouchTapDialog} />
-              <Dialog open={this.state.dialogOpen} title="Dialog With Standard Actions" actions={standardActions}
+              <Dialog
+                open={this.state.dialogOpen}
+                title="Dialog With Standard Actions"
+                actions={[
+                  <FlatButton
+                    label="Cancel"
+                    keyboardFocus={true}
+                    onTouchTap={this.handleRequestCloseDialog}
+                    secondary={true} />,
+                  <FlatButton
+                    label="Submit"
+                    onTouchTap={this.handleRequestCloseDialog}
+                    primary={true} />,
+                ]}
                 onRequestClose={this.handleRequestCloseDialog}>
                 The actions in this window are created from the json that&#39;s passed in.
               </Dialog>
@@ -675,9 +684,6 @@ const ThemesPage = React.createClass({
     });
   },
 
-  _onDialogSubmit() {
-    console.log('Submitting');
-  },
 });
 
 export default ThemesPage;

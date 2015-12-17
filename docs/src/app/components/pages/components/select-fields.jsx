@@ -15,6 +15,7 @@ const SelectFieldsPage = React.createClass({
     return {
       selectValue: undefined,
       selectValue2: 1,
+      selectValue3: '1',
       selectValueLinkValue: 4,
       selectValueLinkValue2: 3,
     };
@@ -23,7 +24,7 @@ const SelectFieldsPage = React.createClass({
   getStyles() {
     let styles = {
       textfield: {
-        marginTop: 24,
+        marginBottom: 24,
       },
     };
 
@@ -195,11 +196,11 @@ const SelectFieldsPage = React.createClass({
       {payload: '5', text: 'Weekly'},
     ];
     let arbitraryArrayMenuItems = [
-      {id:1, name:'Never'},
-      {id:2, name:'Every Night'},
-      {id:3, name:'Weeknights'},
-      {id:4, name:'Weekends'},
-      {id:5, name:'Weekly'},
+      {id: 1, name: 'Never'},
+      {id: 2, name: 'Every Night'},
+      {id: 3, name: 'Weeknights'},
+      {id: 4, name: 'Weekends'},
+      {id: 5, name: 'Weekly'},
     ];
     let menuItemsWithLabel = [
       {payload: '1', text: 'Morning', period: '5 am - 12 pm'},
@@ -252,7 +253,6 @@ const SelectFieldsPage = React.createClass({
               menuItems={arbitraryArrayMenuItems} /><br/>
             <SelectField
               floatingLabelText="With default value"
-              style={styles.textfield}
               value={this.state.selectValue2}
               valueMember="id"
               displayMember="name"
@@ -262,12 +262,22 @@ const SelectFieldsPage = React.createClass({
               floatingLabelText="Disabled"
               disabled={true}
               value={'4'}
-              style={styles.textfield}
               menuItems={menuItems} /><br/>
             <SelectField
               value={this.state.selectValue}
               onChange={this._handleSelectValueChange.bind(null, 'selectValue')}
-              menuItems={menuItems} />
+              menuItems={menuItems} /><br/>
+            <SelectField
+              floatingLabelText="With default value"
+              value={this.state.selectValue3}
+              onChange={this._handleSelectValueChange.bind(null, 'selectValue3')}
+              menuItems={menuItems}
+              errorText="This is always wrong" /><br/>
+            <SelectField
+              value={this.state.selectValue3}
+              onChange={this._handleSelectValueChange.bind(null, 'selectValue3')}
+              menuItems={menuItems}
+              errorText="This is always wrong" /><br/>
           </ClearFix>
         </CodeExample>
       </ComponentDoc>
